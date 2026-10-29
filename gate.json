@@ -1,0 +1,14 @@
+{
+  "note": "Plugin Builder 상태 확인의 2순위. 앱이 사내 배포 서버에 못 닿을 때 읽는다. gate 가 false 면 어떤 경우에도 막지 않는다. pnpm builder:ops 가 고치고, 손으로 고쳐도 된다.",
+  "gate": false,
+  "maintenance": {
+    "on": false,
+    "message": ""
+  },
+  "graceHours": 24,
+  "minVersion": {
+    "dv": null,
+    "pr": null
+  },
+  "updatedAt": "2026-10-29T03:27:53.000Z"
+}
