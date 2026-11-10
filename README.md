@@ -38,3 +38,11 @@ Plugin Builder 설치 앱의 상태 확인 2순위 파일을 두는 공개 저�
 - 막는 것은 앱 실행뿐이다. 설치판 안의 코드는 꺼낼 수 있다
 - 앱이 이 파일을 읽는 것은 M9 부터다
 - 설계: plugin-builder `apps/builder/docs/2-plan/roadmap.md` 의 M9 줄과 배포 계획 `apps/builder/docs/2-plan/core/release-plan.md`. 바탕은 atelier `apps/atelier/docs/2026-09-30-health-gate-design.md`
+
+## Pages 리다이렉트
+
+`https://kh1012.github.io/plugin-builder-ops/<포트>/<경로>` 를 `http://10.10.4.53:<포트>/<경로>` 로 보낸다. 첫 칸이 포트 숫자가 아니면 9190(내려받기 페이지)으로 보낸다. 쿼리 · 해시는 그대로 붙인다.
+
+- 없는 경로는 GitHub Pages 가 `404.html` 을 내주고, 그 안의 스크립트가 주소를 바꿔 보낸다. `index.html` 은 같은 내용이다(루트용)
+- 사내망 밖에서는 이동한 주소에 닿지 않는다. 사내 IP 가 공개 페이지에 적혀 있다
+- `gate.json` · `README.md` 는 실제 파일이라 리다이렉트하지 않는다

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>내려받기 페이지로 이동</title>
+<script>
+  // /plugin-builder-ops/<포트>/<경로> → http://10.10.4.53:<포트>/<경로>
+  // 첫 칸이 포트 숫자가 아니면 내려받기 페이지 포트(9190)로 보낸다. 쿼리 · 해시는 그대로 붙인다
+  (function () {
+    var HOST = "10.10.4.53";
+    var DEFAULT_PORT = "9190";
+    var BASE = "/plugin-builder-ops";
+    var path = location.pathname;
+    if (path.indexOf(BASE) === 0) path = path.slice(BASE.length);
+    var m = path.match(/^\/(\d{1,5})(?=\/|$)/);
+    var port = DEFAULT_PORT;
+    if (m && +m[1] > 0 && +m[1] < 65536) {
+      port = m[1];
+      path = path.slice(m[0].length);
+    }
+    if (path === "" || path === "/index.html") path = "/";
+    var to = "http://" + HOST + ":" + port + path + location.search + location.hash;
+    document.documentElement.setAttribute("data-to", to);
+    location.replace(to);
+  })();
+</script>
+<style>
+  body { margin: 0; padding: 32px 16px; font: 15px/1.6 system-ui, sans-serif; background: #111; color: #ddd; }
+  a { color: #8ab4ff; word-break: break-all; }
+</style>
+</head>
+<body>
+<p>사내망 주소로 이동합니다. 이동하지 않으면 사내망(VPN 포함)에 연결돼 있는지 확인하세요.</p>
+<p><a id="to" href="http://10.10.4.53:9190/">http://10.10.4.53:9190/</a></p>
+<script>
+  var to = document.documentElement.getAttribute("data-to");
+  if (to) { var a = document.getElementById("to"); a.href = to; a.textContent = to; }
+</script>
+</body>
+</html>
